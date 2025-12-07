@@ -9,7 +9,6 @@ $producto = [
     'descripcion'  => '',
     'rubro_id'     => null,
     'precio_venta' => '',
-    'stock'        => 0,
 ];
 
 if ($id) {
@@ -67,21 +66,17 @@ $rubros = $pdo->query("SELECT id, nombre FROM rubros ORDER BY nombre ASC")->fetc
 
             <label>
                 Precio de venta
-                <input type="text" name="precio_venta"
+                <input type="number" step="0.01" name="precio_venta"
                     value="<?php echo htmlspecialchars($producto['precio_venta']); ?>">
             </label>
 
-            <label>
-                Stock
-                <input type="text" name="stock"
-                    value="<?php echo htmlspecialchars($producto['stock']); ?>">
-            </label>
-
             <div class="acciones">
-                <a href="producto_eliminar.php?id=<?php echo $p['id']; ?>"
-                    onclick="return confirm('¿Eliminar este producto?');">
-                    Borrar
-                </a>
+                <?php if (!empty($producto['id'])): ?>
+                    <a href="producto_eliminar.php?id=<?php echo $producto['id']; ?>"
+                        onclick="return confirm('¿Eliminar este producto?');">
+                        Borrar
+                    </a>
+                <?php endif; ?>
                 <button type="submit">Guardar</button>
                 <a class="btn" href="productos_list.php">Volver</a>
             </div>
