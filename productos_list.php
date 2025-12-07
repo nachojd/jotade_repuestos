@@ -67,7 +67,10 @@ $productos = $stmt->fetchAll();
                 <?php else: ?>
                     <?php foreach ($productos as $p): ?>
                         <?php
-                        $codigo = str_pad($p['cod_scanner'],  STR_PAD_LEFT); // JD-00001
+                        $codigoBase = $p['cod_scanner'] !== null && $p['cod_scanner'] !== ''
+                            ? $p['cod_scanner']
+                            : $p['id'];
+                        $codigo = 'JD-' . str_pad((string) $codigoBase, 5, '0', STR_PAD_LEFT);
                         $precio = $p['precio_venta'] !== null ? number_format($p['precio_venta'], 2, ',', '.') : '-';
 
                         
@@ -79,7 +82,8 @@ $productos = $stmt->fetchAll();
                             <td class="precio">$ <?php echo $precio; ?></td>
                             <td class="acciones">
                                 <a href="producto_form.php?id=<?php echo $p['id']; ?>">Editar</a>
-                                <!-- Más adelante: Ver proveedores -->
+                                <a href="producto_eliminar.php?id=<?php echo $p['id']; ?>"
+                                    onclick="return confirm('¿Eliminar este producto?');">Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
