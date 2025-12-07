@@ -29,53 +29,7 @@ $rubros = $pdo->query("SELECT id, nombre FROM rubros ORDER BY nombre ASC")->fetc
 <head>
     <meta charset="UTF-8">
     <title><?php echo $id ? 'Editar producto' : 'Nuevo producto'; ?> - JD</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            margin: 0;
-        }
-
-        .container {
-            width: 600px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 4px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input[type="text"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 6px 8px;
-            margin-top: 3px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            height: 80px;
-        }
-
-        .acciones {
-            margin-top: 15px;
-        }
-
-        button,
-        a.btn {
-            padding: 6px 10px;
-            font-size: 13px;
-            text-decoration: none;
-            border-radius: 3px;
-            border: 1px solid #333;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="css/catalogo.css">
 </head>
 
 <body>
@@ -124,6 +78,10 @@ $rubros = $pdo->query("SELECT id, nombre FROM rubros ORDER BY nombre ASC")->fetc
             </label>
 
             <div class="acciones">
+                <a href="producto_eliminar.php?id=<?php echo $p['id']; ?>"
+                    onclick="return confirm('¿Eliminar este producto?');">
+                    Borrar
+                </a>
                 <button type="submit">Guardar</button>
                 <a class="btn" href="productos_list.php">Volver</a>
             </div>
